@@ -5,7 +5,7 @@ from user_agent import generate_user_agent
 from time import sleep
 
 # --- إعدادات الصفحة والتصميم ---
-st.set_page_config(page_title="ايـفـان| @UYIITY00", page_icon="⚔️", layout="centered")
+st.set_page_config(page_title=" ايــفان| @Evann332", page_icon="⚔️", layout="centered")
 
 st.markdown("""
     <style>
@@ -36,8 +36,8 @@ st.markdown("""
     """, unsafe_allow_html=True)
 
 # --- عرض الصورة الشخصية ---
-st.markdown(f'<img src="https://i.ibb.co/TM2tb6FV/IMG-20250213-223853-502.jpg" class="user-avatar" width="160">', unsafe_allow_html=True)
-st.markdown("<h1 style='text-align: center; color: #FFD700;'>قناة المطور | @UYIITY00</h1>", unsafe_allow_html=True)
+st.markdown(f'<img src="https://g.top4top.io/p_3738ym6sq1.jpg" class="user-avatar" width="160">', unsafe_allow_html=True)
+st.markdown("<h1 style='text-align: center; color: #FFD700;'>قناة المطور ايفان/@Evann332</h1>", unsafe_allow_html=True)
 st.markdown("<p style='text-align: center; color: #888;'> رشق الخدمات الاجتماعية المتكاملة</p>", unsafe_allow_html=True)
 st.write("---")
 
@@ -101,4 +101,4 @@ if st.button("بدأ"):
         st.warning("يرجى إدخال الرابط أولاً!")
 
 st.write("---")
-st.markdown("<p style='text-align: center; font-size: 12px; color: #555;'>تم التطوير بواسطة ايـفـان @eva33n</p>", unsafe_allow_html=True)
+st.markdown("<p style='text-align: center; font-size: 12px; color: #555;'>المطور خاص ايـفـان مهند/@eva33n</p>", unsafe_allow_html=True)
