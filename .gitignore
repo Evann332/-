@@ -1,104 +1,116 @@
-import streamlit as st
-import requests
-import random
-from user_agent import generate_user_agent
-from time import sleep
-
-# --- إعدادات الصفحة والتصميم ---
-st.set_page_config(page_title=" ايــفان| @Evann332", page_icon="⚔️", layout="centered")
-
-st.markdown("""
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>صفحة ايفان مهند - الرسمية</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-    .stApp { background: #0e1117; color: white; }
-    
-    @keyframes pulse-gold {
-        0% { transform: scale(1); box-shadow: 0 0 5px #FFD700; }
-        50% { transform: scale(1.05); box-shadow: 0 0 20px #FFD700; }
-        100% { transform: scale(1); box-shadow: 0 0 5px #FFD700; }
-    }
-    .user-avatar {
-        display: block; margin: auto; border: 4px solid #FFD700;
-        border-radius: 50%; animation: pulse-gold 2s infinite;
-        margin-bottom: 20px;
-    }
-
-    .stButton>button {
-        width: 100%; border-radius: 12px; 
-        background: linear-gradient(45deg, #FFD700, #DAA520);
-        color: black; font-weight: bold; border: none; height: 3.5em;
-        transition: 0.3s; margin-top: 10px;
-    }
-    .stButton>button:hover { transform: translateY(-3px); box-shadow: 0 5px 15px rgba(255,215,0,0.4); }
-
-    .stSelectbox div[data-baseweb="select"] { background-color: #1a1a1a; border: 1px solid #DAA520; }
-    .stTextInput>div>div>input { background-color: #1a1a1a; color: #FFD700; border: 1px solid #DAA520; text-align: center; }
-    </style>
-    """, unsafe_allow_html=True)
-
-# --- عرض الصورة الشخصية ---
-st.markdown(f'<img src="https://g.top4top.io/p_3738ym6sq1.jpg" class="user-avatar" width="160">', unsafe_allow_html=True)
-st.markdown("<h1 style='text-align: center; color: #FFD700;'>قناة المطور ايفان/@Evann332</h1>", unsafe_allow_html=True)
-st.markdown("<p style='text-align: center; color: #888;'> رشق الخدمات الاجتماعية المتكاملة</p>", unsafe_allow_html=True)
-st.write("---")
-
-# --- دالة لتوليد IP عشوائي ---
-def generate_random_ip():
-    return ".".join(map(str, (random.randint(0, 255) for _ in range(4))))
-
-# --- دالات الرشق الأصلية ---
-def send_request(url, link, quantity=None):
-    random_ip = generate_random_ip()
-    headers = {
-        "User-Agent": generate_user_agent(),
-        "Content-Type": "application/x-www-form-urlencoded",
-        "Origin": "https://leofame.com",
-        "referer": url.split('?')[0],
-        "cookie": "token=FAKETOKEN; cf_clearance=FAKECOOKIE",
-        "X-Forwarded-For": random_ip,
-        "Client-IP": random_ip
-    }
-    data = {
-        "token": "FAKETOKEN",
-        "timezone_offset": "Asia/Baghdad",
-        "free_link": link
-    }
-    if quantity: data["quantity"] = quantity
-    
-    try:
-        # إضافة تأخير عشوائي بين 3 إلى 7 ثوانٍ
-        wait_time = random.randint(3, 7)
-        st.info(f"⏳ جاري الانتظار {wait_time} ثوانٍ لتجنب الحظر...")
-        sleep(wait_time)
+        body { 
+            font-family: 'Cairo', sans-serif; text-align: center; 
+            background: linear-gradient(rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.7)), 
+                        url('https://i.imgur.com/RVpz204.jpeg') no-repeat center center fixed; 
+            background-size: cover; color: white; padding: 20px; margin: 0; 
+        }
+        .container { max-width: 400px; margin: auto; }
         
-        r = requests.post(url, headers=headers, data=data)
-        if "Please wait" in r.text or '"error":' in r.text:
-            st.error("⚠️ الموقع يطلب الانتظار. جرب لاحقاً أو غير الرابط.")
-        else:
-            st.success(f"✅ تم الإرسال بنجاح بـ IP وهمي: {random_ip}")
-    except Exception as e:
-        st.error(f"حدث خطأ في الاتصال: {e}")
+        .img-wrapper {
+            position: relative;
+            width: 150px; height: 150px;
+            margin: 0 auto 30px auto;
+            border-radius: 50%;
+            padding: 5px;
+            background: linear-gradient(45deg, #ffd700, #ff0000, #0088cc, #e1306c, #ffd700);
+            background-size: 400%;
+            animation: rotateBorder 3s linear infinite;
+        }
 
-# --- واجهة الاختيار ---
-option = st.selectbox(
-    "اختر الخدمة المطلوبة:",
-    ["إعجابات يوتيوب", "إعجابات تيك توك", "حفظ منشور إنستغرام", "مشاهدات تيك توك"]
-)
+        @keyframes rotateBorder {
+            0% { background-position: 0 0; }
+            100% { background-position: 400% 0; }
+        }
 
-video_url = st.text_input("ضع الرابط هنا 👇", placeholder="https://...")
+        img.profile-pic { 
+            width: 100%; height: 100%; border-radius: 50%; display: block; object-fit: cover;
+            background-color: #000;
+        }
 
-if st.button("بدأ"):
-    if video_url:
-        with st.spinner('جاري معالجة الطلب...'):
-            if option == "إعجابات يوتيوب":
-                send_request("https://leofame.com/free-youtube-likes?api=1", video_url)
-            elif option == "إعجابات تيك توك":
-                send_request("https://leofame.com/free-tiktok-likes?api=1", video_url)
-            elif option == "حفظ منشور إنستغرام":
-                send_request("https://leofame.com/free-instagram-saves?api=1", video_url, "30")
-            elif option == "مشاهدات تيك توك":
-                send_request("https://leofame.com/ar/free-tiktok-views?api=1", video_url, "200")
-    else:
-        st.warning("يرجى إدخال الرابط أولاً!")
+        .animated-name { 
+            font-size: 32px; font-weight: 700; color: #fff; margin-bottom: 5px;
+            animation: zoomPulse 2s infinite alternate; text-shadow: 0 0 10px #ffd700;
+        }
+        @keyframes zoomPulse { from { transform: scale(1); } to { transform: scale(1.1); } }
 
-st.write("---")
-st.markdown("<p style='text-align: center; font-size: 12px; color: #555;'>المطور خاص ايـفـان مهند/@eva33n</p>", unsafe_allow_html=True)
+        .sub-slogan {
+            font-size: 15px; color: #ffd700; font-weight: 600; margin-bottom: 25px;
+            text-shadow: 0 0 8px rgba(255, 215, 0, 0.6);
+        }
+
+        .link { 
+            display: flex; align-items: center; justify-content: start; 
+            background: rgba(255, 255, 255, 0.08); margin: 12px 0; padding: 15px; 
+            text-decoration: none; color: #fff; border-radius: 15px; 
+            transition: 0.3s; border: 1px solid rgba(255,255,255,0.1); font-weight: 600;
+        }
+        .link:hover { transform: scale(1.02); background: rgba(255, 255, 255, 0.15); border-color: #ffd700; }
+        .link i { margin-left: 20px; font-size: 28px; width: 40px; text-align: center; }
+        
+        .fa-telegram { color: #0088cc; }
+        .fa-instagram { color: #e1306c; }
+        .fa-youtube { color: #ff0000; }
+        .fa-snapchat { color: #fffc00; }
+        .fa-tiktok { color: #fff; } 
+        .fa-whatsapp { color: #25d366; } 
+        .fa-bullhorn { color: #ffd700; }
+        
+        .dev-box {
+            margin-top: 40px; padding: 25px; background: rgba(0, 0, 0, 0.7);
+            border-radius: 20px; border: 1px solid #ffd700;
+        }
+        .dev-name { font-size: 20px; color: #ffd700; font-weight: bold; margin-bottom: 10px; display: block; }
+        .dev-msg { font-size: 15px; color: #ccc; line-height: 1.8; }
+    </style>
+</head>
+<body onclick="activateExperience()">
+    <div class="container">
+        <div class="img-wrapper">
+            <img src="https://i.imgur.com/7uzaJBV.jpeg" alt="صورة ايفان مهند" class="profile-pic">
+        </div>
+        
+        <h1 class="animated-name">ايفان مهند</h1>
+        <div class="sub-slogan">إيفان مهند معكم لا خوف عليكم</div>
+        
+        <a href="https://t.me/eva33n" class="link" target="_blank"><i class="fab fa-telegram"></i> تليجرام الخاص</a>
+        <!-- قناة واتساب أصبحت في الحقل الثاني -->
+        <a href="ضع_رابط_قناة_واتساب_هنا" class="link" target="_blank"><i class="fab fa-whatsapp"></i> قناة واتساب</a>
+        <a href="https://www.instagram.com/e.3van?igsh=dWtxdjRnZGxla3V5" class="link" target="_blank"><i class="fab fa-instagram"></i> انستجرام</a>
+        <a href="https://www.youtube.com/@EvanMuhannad" class="link" target="_blank"><i class="fab fa-youtube"></i> يوتيوب</a>
+        <a href="https://www.tiktok.com/@e33van?_r=1&_t=ZS-97BEmCQra0A" class="link" target="_blank"><i class="fab fa-tiktok"></i> تيك توك</a>
+        <a href="https://www.snapchat.com/add/evanmuhannad?share_id=cwYTkHsvbAI&locale=ar-EG" class="link" target="_blank"><i class="fab fa-snapchat"></i> سناب شات</a>
+        <a href="https://t.me/Evann332" class="link" target="_blank" style="border: 1px solid #ffd700;"><i class="fas fa-bullhorn"></i> القناة الرسمية على تليجرام</a>
+
+        <div class="dev-box">
+            <span class="dev-name">المطور ايفان مهند</span>
+            <div class="dev-msg">
+                🇮🇶 نخطو نحو القمة لنقدم لكم أفضل المحتويات التقنية والترفيهية بإبداع عراقي خالص. كونوا معنا في عالمنا.
+            </div>
+        </div>
+    </div>
+
+    <audio id="gameMusic" loop>
+        <source src="ضع_رابط_الموسيقى_هنا.mp3" type="audio/mpeg">
+    </audio>
+
+    <script>
+        function activateExperience() {
+            var music = document.getElementById("gameMusic");
+            if(music.paused) { music.play(); }
+            
+            var msg = new SpeechSynthesisUtterance("إيفان مهند معكم لا خوف عليكم");
+            msg.lang = 'ar-IQ';
+            window.speechSynthesis.speak(msg);
+        }
+    </script>
+</body>
+</html>
